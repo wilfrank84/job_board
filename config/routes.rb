@@ -1,12 +1,16 @@
 JobBoard::Application.routes.draw do
   root to: "jobs#premium"
   
-
   resources :jobs do
     post "comments", to: "comments#create"
   end
   delete "comments/:id", to: "comments#destroy", as: :comment
   get "hello/world"
+
+  resources :companies, only: [:new, :create]
+
+  get "/companies/login", to: "login#new"
+  post "/companies/login", to: "login#create"
 
   # The priority is based upon order of creation:
   # first created -> highest priority.

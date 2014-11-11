@@ -11,7 +11,7 @@ gem 'pg', group: :production
 # Gems used only for assets and not required
 # in production environments by default.
 group :assets do
-  gem 'sass-rails',   '~> 3.2.3'
+  # gem 'sass-rails',   '~> 3.2.3'
   gem 'coffee-rails', '~> 3.2.1'
 
   # See https://github.com/sstephenson/execjs#readme for more supported runtimes
@@ -38,3 +38,16 @@ gem 'jquery-rails'
 # gem 'debugger'
 
 gem 'will_paginate'
+gem 'bootstrap-sass', '~> 3.3.0'
+gem 'autoprefixer-rails'
+
+gem 'sprockets-rails', '=2.0.0.backport1'
+gem 'sprockets', '=2.2.2.backport2'
+gem 'sass-rails', github: 'guilleiguaran/sass-rails', branch: 'backport'
+
+gem 'bcrypt-ruby', '~> 3.0'
+
+group :development do
+  gem 'thin'
+  gem 'quiet_assets'
+end

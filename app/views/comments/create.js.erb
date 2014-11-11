@@ -1,0 +1,14 @@
+<% if @comment.errors.empty? %>
+	$('#comments').prepend('<%=j render(@comment) %>');
+  	$('#new_comment')[0].reset();
+  	//alert('Sucesso!');
+  	$(".flash-error").html("<div class='alert alert-success' role='alert'><button type='button' class='close' data-dismiss='alert'><span aria-hidden='true'>&times;</span><span class='sr-only'>Close</span></button><%= notice %></div>");
+	$('html, body').animate({
+		scrollTop: 0
+	}, 200);
+<% else %>
+  	$(".flash-error").html("<div class='alert alert-danger' role='alert'><button type='button' class='close' data-dismiss='alert'><span aria-hidden='true'>&times;</span><span class='sr-only'>Close</span></button><%= alert %></div>");
+	$('html, body').animate({
+		scrollTop: 0
+	}, 200);
+<% end %>

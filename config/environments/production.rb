@@ -50,6 +50,17 @@ JobBoard::Application.configure do
 
   # Disable delivery errors, bad email addresses will be ignored
   # config.action_mailer.raise_delivery_errors = false
+  config.action_mailer.default_url_options = { host: "localhost:3000" }
+  config.action_mailer.delivery_method = :smtp
+  config.action_mailer.smtp_settings = {
+    :address              => 'ssl://smtp.codethink.com.br',
+    :port                 => 465,
+    :domain               => 'localhost:3000',
+    :user_name            => 'no-reply@codethink.com.br',
+    :password             => 'tri777',
+    :authentication       => 'plain',
+    :enable_starttls_auto => true
+  }
 
   # Enable threaded mode
   # config.threadsafe!

@@ -1,8 +1,10 @@
 class JobsController < ApplicationController
+  before_filter :authorize_company, only: [:new, :create, :edit, :update, :destroy]
+
   # GET /jobs
   # GET /jobs.json
   def index
-    @jobs = Job.most_recent.paginate(page: params[:page], per_page: 5)
+    @jobs = Job.most_recent.includes(:company).paginate(page: params[:page], per_page: 5)
 
     respond_to do |format|
       format.html # index.html.erb
@@ -11,13 +13,14 @@ class JobsController < ApplicationController
   end
 
   def premium 
-    @jobs = Job.where(premium: true).most_recent.paginate(page: params[:page], per_page: 5)
+    @jobs = Job.where(premium: true).most_recent.includes(:company).  paginate(page: params[:page], per_page: 5)
   end
 
   # GET /jobs/1
   # GET /jobs/1.json
   def show
     @job = Job.find(params[:id])
+    @comments = @job.comments.order('id desc')
 
     respond_to do |format|
       format.html # show.html.erb
@@ -28,7 +31,7 @@ class JobsController < ApplicationController
   # GET /jobs/new
   # GET /jobs/new.json
   def new
-    @job = Job.new
+    @job = current_company.jobs.build
 
     respond_to do |format|
       format.html # new.html.erb
@@ -38,13 +41,13 @@ class JobsController < ApplicationController
 
   # GET /jobs/1/edit
   def edit
-    @job = Job.find(params[:id])
+    @job = current_company.jobs.find(params[:id])
   end
 
   # POST /jobs
   # POST /jobs.json
   def create
-    @job = Job.new(params[:job])
+    @job = current_company.jobs.build(params[:job])
 
     respond_to do |format|
       if @job.save
@@ -60,7 +63,7 @@ class JobsController < ApplicationController
   # PUT /jobs/1
   # PUT /jobs/1.json
   def update
-    @job = Job.find(params[:id])
+    @job = current_company.jobs.find(params[:id])
 
     respond_to do |format|
       if @job.update_attributes(params[:job])
@@ -76,7 +79,7 @@ class JobsController < ApplicationController
   # DELETE /jobs/1
   # DELETE /jobs/1.json
   def destroy
-    @job = Job.find(params[:id])
+    @job = current_company.jobs.find(params[:id])
     @job.destroy
 
     respond_to do |format|
@@ -84,4 +87,13 @@ class JobsController < ApplicationController
       format.json { head :no_content }
     end
   end
+
+  private
+
+  def authorize_company
+    unless current_company
+      redirect_to root_path, alert: "You need to login to continue."
+    end
+  end
+
 end

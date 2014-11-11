@@ -1,0 +1,10 @@
+<h1>Hello <%= @company.name %></h1>,
+
+<h3>You've got a new comment about you <%= @job.title %> job:</h3>
+
+<p><strong>Name:</strong> <%= @comment.name %></p>
+<p><strong>Body:</strong> <%= @comment.body %></p>
+
+<p>You can see all comments for this job in <%= link_to @job.title, job_url(@job) %>.</p>
+
+<p>Thank you!</p>
