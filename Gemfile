@@ -42,7 +42,7 @@ gem 'bootstrap-sass', '~> 3.3.0'
 gem 'autoprefixer-rails'
 
 gem 'sprockets-rails', '=2.0.0.backport1'
-gem 'sprockets', '=2.2.2.backport2'
+gem 'sprockets', '~> 2.0'
 gem 'sass-rails', github: 'guilleiguaran/sass-rails', branch: 'backport'
 
 gem 'bcrypt-ruby', '~> 3.0'
